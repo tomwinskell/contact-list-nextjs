@@ -1,5 +1,11 @@
 export default function Contacts() {
+  
   return (
-    <div>View All Contacts</div>
+<>
+      <div>View All Contacts</div>
+      <div>
+        
+      </div>
+</>
   );
 }
