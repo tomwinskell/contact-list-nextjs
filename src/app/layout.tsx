@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import ContactsProvider from '@/app/ui/ContactsProvider';
 import Navigation from '@/app/ui/Navigation';
-import { RiContactsBook3Fill } from 'react-icons/ri';
+import Header from './ui/Header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,11 +30,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-indigo-500 h-screen flex justify-center items-center`}
       >
-        <div className='flex flex-col w-9/10 md:w-2/3 my-5'>
-          <div className='self-center rounded-full text-8xl text-indigo-500 bg-indigo-700 max-w-max p-5'><RiContactsBook3Fill /></div>
-          <div className='self-center text-4xl text-indigo-700 font-bold mb-5 mt-2'>Contacts</div>
-          <div className='p-5 rounded-2xl bg-indigo-700 mb-5'><Navigation/></div>
-          <div className='p-5 rounded-2xl bg-white'><ContactsProvider>{children}</ContactsProvider></div>
+        <div className="flex flex-col w-9/10 md:w-2/3 my-5">
+          <Header />
+          <div className="p-5 rounded-2xl bg-indigo-700 mb-5">
+            <Navigation />
+          </div>
+          <div className="p-5 rounded-2xl bg-white">
+            <ContactsProvider>{children}</ContactsProvider>
+          </div>
         </div>
       </body>
     </html>

@@ -10,7 +10,7 @@ export default function ContactItem({
   return (
     <>
       <div>{name}</div>
-      <div><Image src={image_url} alt={name} width="128" height="128"/></div>
+      <div ><Image className='rounded-full' src={image_url} alt={name} width="128" height="128"/></div>
       <div>
         <div>{email}</div>
         <div>{phone}</div>
