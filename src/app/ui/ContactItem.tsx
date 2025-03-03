@@ -3,20 +3,20 @@ import { Contact } from '../lib/definitions';
 import PageHeading from './PageHeading';
 
 export default function ContactItem({
-  first_name,
-  last_name,
-  image_url,
+  firstName,
+  lastName,
+  imageUrl,
   email,
   phone,
 }: Contact) {
   return (
     <>
-      <PageHeading heading={`${first_name}, ${last_name}`} />
+      <PageHeading heading={`${firstName}, ${lastName}`} />
       <div>
         <Image
           className="rounded-full"
-          src={image_url}
-          alt={first_name}
+          src={imageUrl}
+          alt={firstName}
           width="128"
           height="128"
         />

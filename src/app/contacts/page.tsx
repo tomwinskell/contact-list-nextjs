@@ -6,16 +6,18 @@ import { ContactsContext } from '../ui/ContactsProvider';
 import PageHeading from '../ui/PageHeading';
 
 export default function Contacts() {
-  const [contacts, setContacts] = useContext(ContactsContext);
+  const [contacts] = useContext(ContactsContext);
 
   return (
     <>
-      <PageHeading heading='*User Contacts'/>
+      <PageHeading heading="*User Contacts" />
       <div>
         {contacts ? (
           contacts.map((c: Contact) => (
             <Link key={c.id} href={`/contacts/${c.id}`}>
-              <p className='mb-2'>{c.first_name}, {c.last_name}</p>
+              <p className="mb-2">
+                {c.firstName}, {c.lastName}
+              </p>
             </Link>
           ))
         ) : (
