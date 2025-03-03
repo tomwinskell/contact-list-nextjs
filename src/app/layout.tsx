@@ -30,12 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-indigo-500 h-screen flex justify-center items-center`}
       >
-        <div className="flex flex-col w-9/10 md:w-2/3 my-5">
-          <Header />
-          <div className="p-5 rounded-2xl bg-indigo-700 mb-5">
+        <div className="flex flex-col w-2/3 my-5">
+          <div className="p-5 min-w-min rounded-2xl bg-white mb-5 flex flex-col gap-5 lg:flex-row justify-between items-center">
+            <Header />
             <Navigation />
           </div>
-          <div className="p-5 rounded-2xl bg-white">
+          <div className="p-5 w-full rounded-2xl bg-white">
             <ContactsProvider>{children}</ContactsProvider>
           </div>
         </div>

@@ -2,13 +2,13 @@ import { RiContactsBook3Fill } from "react-icons/ri";
 
 export default function Header() {
   return (
-    <>
-      <div className="self-center rounded-full text-8xl text-indigo-500 bg-indigo-700 max-w-max p-5">
+    <div className="flex flex-row items-center">
+      <div className="rounded-full text-4xl text-indigo-300 bg-indigo-700 max-w-max p-3">
         <RiContactsBook3Fill />
       </div>
-      <div className="self-center text-4xl text-indigo-700 font-bold mb-5 mt-2">
+      <div className="text-4xl text-indigo-700 font-bold ms-2">
         Contacts
       </div>
-    </>
+    </div>
   );
 }

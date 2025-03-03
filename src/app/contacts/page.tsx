@@ -1,21 +1,21 @@
 'use client';
 import { Contact } from '@/app/lib/definitions';
 import Link from 'next/link';
-import ContactItem from '@/app/ui/ContactItem';
 import { useContext } from 'react';
 import { ContactsContext } from '../ui/ContactsProvider';
+import PageHeading from '../ui/PageHeading';
 
 export default function Contacts() {
-  const contacts = useContext(ContactsContext)
+  const contacts = useContext(ContactsContext);
 
   return (
     <>
-      <div>View All Contacts</div>
+      <PageHeading heading='*User* Contacts'/>
       <div>
         {contacts ? (
           contacts.map((c: Contact) => (
             <Link key={c.id} href={`/contacts/${c.id}`}>
-              <ContactItem {...c}></ContactItem>
+              <p className='mb-2'>{c.first_name}, {c.last_name}</p>
             </Link>
           ))
         ) : (
