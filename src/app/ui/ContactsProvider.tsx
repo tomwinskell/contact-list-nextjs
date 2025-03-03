@@ -1,16 +1,25 @@
-'use client'
-import { createContext, ReactNode, useEffect, useState } from 'react';
+'use client';
+import {
+  createContext,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+  Dispatch,
+} from 'react';
 import { Contact } from '@/app/lib/definitions';
 import { getContacts } from '@/app/lib/getContacts';
 
-export const ContactsContext = createContext<Contact[] | null>(null);
+type ContactsContext = [Contact[], Dispatch<SetStateAction<Contact[]>>];
+
+export const ContactsContext = createContext<ContactsContext>([[], () => {}]);
 
 export default function ContactsProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [contacts, setContacts] = useState<Contact[] | null>(null);
+  const [contacts, setContacts] = useState<Contact[]>([]);
 
   useEffect(() => {
     async function fetchContacts() {
@@ -20,7 +29,7 @@ export default function ContactsProvider({
   }, []);
 
   return (
-    <ContactsContext.Provider value={contacts}>
+    <ContactsContext.Provider value={[contacts, setContacts]}>
       {children}
     </ContactsContext.Provider>
   );

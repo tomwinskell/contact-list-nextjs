@@ -8,7 +8,7 @@ import { useContext } from 'react';
 
 export default function ContactPage() {
   const { id } = useParams();
-  const contacts = useContext(ContactsContext)
+  const [contacts, setContacts] = useContext(ContactsContext)
 
   function getContact(): Contact {
     if (contacts && id) {

@@ -6,11 +6,11 @@ import { ContactsContext } from '../ui/ContactsProvider';
 import PageHeading from '../ui/PageHeading';
 
 export default function Contacts() {
-  const contacts = useContext(ContactsContext);
+  const [contacts, setContacts] = useContext(ContactsContext);
 
   return (
     <>
-      <PageHeading heading='*User* Contacts'/>
+      <PageHeading heading='*User Contacts'/>
       <div>
         {contacts ? (
           contacts.map((c: Contact) => (
