@@ -1,7 +1,7 @@
 'use client';
 import { createContext, ReactNode, useState, useEffect } from 'react';
 import { FormErrorObject, FormValidationType } from '@/app/lib/definitions';
-import { formElements } from '../lib/addContactFormElements';
+import { formElements } from '@/app/lib/addContactFormElements';
 
 export const FormValidationContext = createContext<FormValidationType>([
   {},

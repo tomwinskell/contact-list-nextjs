@@ -12,11 +12,6 @@ export type Contact = {
   imageUrl: string;
 } & ContactFormData;
 
-export type TextInputProps = {
-  label: string;
-  name: string;
-};
-
 export type FormErrorObject = Record<string, boolean>;
 
 export type RegexValidationObject = Record<string, RegExp>;

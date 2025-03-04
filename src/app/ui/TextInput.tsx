@@ -1,20 +1,42 @@
 import clsx from 'clsx';
-import { useContext, useState } from 'react';
-import { TextInputProps } from '../lib/definitions';
+import { useContext, useEffect, useState } from 'react';
 import { validate } from '../lib/formValidation';
 import { FormValidationContext } from './FormValidationProvider';
 
-export default function TextInput({ label, name }: TextInputProps) {
+export default function TextInput({
+  label,
+  name,
+  data = undefined,
+}: {
+  label: string;
+  name: string;
+  data?: string;
+}) {
   const [input, setInput] = useState('');
   const [error, setError] = useContext(FormValidationContext);
 
+  useEffect(() => {
+    if (data) {
+      setInput(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      handleValidate(data);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    handleValidate(input);
     setInput(e.target.value);
   }
 
-  function handleBlur() {
-    setError({ ...error, [name]: !validate(name, input) });
+  function handleValidate(toCheck: string) {
+    setError((prevState) => ({ ...prevState, [name]: !validate(name, toCheck) }));
   }
+
 
   return (
     <div className="mb-2">
@@ -33,7 +55,7 @@ export default function TextInput({ label, name }: TextInputProps) {
             placeholder={label}
             value={input}
             onChange={(e) => handleChange(e)}
-            onBlur={() => handleBlur()}
+            onBlur={() => handleValidate(input)}
           />
           {error[name] && (
             <div className="text-xs text-red-600">{`${label} is required`}</div>

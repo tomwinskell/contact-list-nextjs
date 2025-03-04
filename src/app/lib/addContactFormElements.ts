@@ -1,4 +1,4 @@
-export const formElements = [
+export const formElements: {label: string; name: string; data?: string}[] = [
   {
     label: 'First Name',
     name: 'firstName',

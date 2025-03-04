@@ -51,7 +51,7 @@ export default function ContactItem({
           </div>
           <div className="flex flex-row justify-between">
             <button
-              disabled
+              onClick={() => router.push(`/contacts/${id}/edit`)}
               className={clsx(
                 'py-2 px-4 font-semibold  rounded-lg w-min bg-indigo-700 text-white'
               )}
