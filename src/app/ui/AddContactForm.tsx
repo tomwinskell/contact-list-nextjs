@@ -19,7 +19,6 @@ export default function AddContactForm() {
   function handleSubmit(formData: FormData) {
     const dataObject = Object.fromEntries(formData.entries());
     if (!disabled) {
-      //TODO: Toast alert on success
       setContacts([
         ...contacts,
         {
@@ -28,16 +27,24 @@ export default function AddContactForm() {
           imageUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
         },
       ]);
-      const toast = new Promise((resolve) => {
-        setToastOpen(true);
-        setTimeout(() => resolve('resolved'), 1000);
-      });
-      toast.then(() => {
-        setToastOpen(false);
-        setDisabled(true);
-        router.push('/contacts');
-      });
+      showToast();
     }
+  }
+
+  function cleanUp() {
+    setDisabled(true);
+    router.push('/contacts');
+  }
+
+  function showToast() {
+    const toast = new Promise((resolve) => {
+      setToastOpen(true);
+      setTimeout(() => resolve('resolved'), 1000);
+    });
+    toast.then(() => {
+      setToastOpen(false);
+      cleanUp();
+    });
   }
 
   return (
