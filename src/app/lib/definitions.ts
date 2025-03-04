@@ -8,8 +8,8 @@ export type ContactFormData = {
 };
 
 export type Contact = {
-  id?: number;
-  imageUrl?: string;
+  id: string;
+  imageUrl: string;
 } & ContactFormData;
 
 export type TextInputProps = {

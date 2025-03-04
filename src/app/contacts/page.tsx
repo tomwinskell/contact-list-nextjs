@@ -11,7 +11,7 @@ export default function Contacts() {
   return (
     <>
       <PageHeading heading="*User Contacts" />
-      <div>
+      <div className='text-center'>
         {contacts ? (
           contacts.map((c: Contact) => (
             <Link key={c.id} href={`/contacts/${c.id}`}>
@@ -21,7 +21,7 @@ export default function Contacts() {
             </Link>
           ))
         ) : (
-          <div>You have no contacts</div>
+          <div>You have no contacts.</div>
         )}
       </div>
     </>

@@ -18,11 +18,11 @@ export default function TextInput({ label, name }: TextInputProps) {
 
   return (
     <div className="mb-2">
-      <div className="flex flex-row text-nowrap items-baseline">
-        <label className="me-2 w-1/3 text-end" htmlFor="firstName">
+      <div className="flex flex-col sm:flex-row text-nowrap items-baseline">
+        <label className="me-2 sm:w-1/3 sm:text-end" htmlFor="firstName">
           {label}
         </label>
-        <div className="w-2/3">
+        <div className="w-full sm:w-2/3">
           <input
             type="text"
             name={name}

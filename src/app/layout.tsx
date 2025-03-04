@@ -28,14 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-indigo-500 h-screen flex justify-center items-center`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased sm:bg-indigo-500 sm:h-screen flex justify-center items-center`}
       >
-        <div className="flex flex-col w-2/3 my-5">
-          <div className="p-5 min-w-min rounded-2xl bg-white mb-5 flex flex-col gap-5 lg:flex-row justify-between items-center">
+        <div className="flex flex-col w-full max-w-[600px] sm:my-5 mt-5">
+          <div className="p-5 rounded-2xl bg-white sm:mb-5 flex flex-col gap-5 lg:flex-row justify-between items-center">
             <Header />
             <Navigation />
           </div>
-          <div className="p-5 w-full rounded-2xl bg-white">
+          <div className="p-5 rounded-2xl bg-white">
             <ContactsProvider>{children}</ContactsProvider>
           </div>
         </div>

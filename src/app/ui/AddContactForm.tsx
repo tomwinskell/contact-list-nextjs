@@ -22,7 +22,7 @@ export default function AddContactForm() {
         ...contacts,
         {
           ...(dataObject as ContactFormData),
-          id: contacts.length + 1,
+          id: (contacts.length + 1).toString(),
           imageUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
         },
       ]);
@@ -46,7 +46,7 @@ export default function AddContactForm() {
             'self-end py-3 px-5 font-semibold  rounded-lg w-min text-nowrap mt-3',
             disabled
               ? 'bg-slate-300 text-slate-400 cursor-not-allowed'
-              : 'text-white bg-indigo-700'
+              : 'text-white bg-indigo-700 cursor-pointer'
           )}
         >
           Add Contact
