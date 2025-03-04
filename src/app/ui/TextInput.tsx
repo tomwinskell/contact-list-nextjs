@@ -1,13 +1,18 @@
 import clsx from 'clsx';
-type TextInputProps = {
-  label: string;
-  name: string;
-  valid: boolean;
-  value: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-};
+import { useContext, useState } from 'react';
+import { TextInputProps } from '../lib/definitions';
+import { validate } from '../lib/formValidation';
+import { FormValidationContext } from './FormValidationProvider';
 
-export default function TextInput({ label, name, valid, value, handleChange }: TextInputProps) {
+export default function TextInput({ label, name }: TextInputProps) {
+  const [input, setInput] = useState('');
+  const [error, setError] = useContext(FormValidationContext);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setError({...error, [name]: !validate(name, input)});
+    setInput(e.target.value);
+  }
+
   return (
     <div className="mb-2">
       <div className="flex flex-row text-nowrap items-baseline">
@@ -20,13 +25,13 @@ export default function TextInput({ label, name, valid, value, handleChange }: T
             name={name}
             className={clsx(
               'rounded-lg p-2 w-full border',
-              !valid && 'border-red-600'
+              error[name] && 'border-red-600'
             )}
             placeholder={label}
-            value={value}
-            onChange={e => handleChange(e)}
+            value={input}
+            onChange={(e) => handleChange(e)}
           />
-          {valid || (
+          {error[name] && (
             <div className="text-xs text-red-600">{`${label} is required`}</div>
           )}
         </div>
