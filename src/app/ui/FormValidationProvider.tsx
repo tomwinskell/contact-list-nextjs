@@ -1,6 +1,7 @@
 'use client';
 import { createContext, ReactNode, useState, useEffect } from 'react';
 import { FormErrorObject, FormValidationType } from '@/app/lib/definitions';
+import { formElements } from '../lib/addContactFormElements';
 
 export const FormValidationContext = createContext<FormValidationType>([
   {},
@@ -14,17 +15,19 @@ export default function FormValidationProvider({
 }: {
   children: ReactNode;
 }) {
-  const [error, setError] = useState<FormErrorObject>({
-    firstName: true,
-    lastName: true,
-    email: true,
-    phone: true,
-  });
+  const [error, setError] = useState<FormErrorObject>({});
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if (Object.values(error).every((v) => !v)) {
+    if (Object.values(error).length === 0) {
+      return;
+    } else if (
+      Object.values(error).length === formElements.length &&
+      Object.values(error).every((v) => !v)
+    ) {
       setDisabled(false);
+    } else {
+      setDisabled(true);
     }
   }, [error]);
 

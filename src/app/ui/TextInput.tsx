@@ -9,8 +9,11 @@ export default function TextInput({ label, name }: TextInputProps) {
   const [error, setError] = useContext(FormValidationContext);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setError({...error, [name]: !validate(name, input)});
     setInput(e.target.value);
+  }
+
+  function handleBlur() {
+    setError({ ...error, [name]: !validate(name, input) });
   }
 
   return (
@@ -30,6 +33,7 @@ export default function TextInput({ label, name }: TextInputProps) {
             placeholder={label}
             value={input}
             onChange={(e) => handleChange(e)}
+            onBlur={() => handleBlur()}
           />
           {error[name] && (
             <div className="text-xs text-red-600">{`${label} is required`}</div>

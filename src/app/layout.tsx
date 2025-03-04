@@ -4,7 +4,6 @@ import '@/app/globals.css';
 import ContactsProvider from '@/app/ui/ContactsProvider';
 import Navigation from '@/app/ui/Navigation';
 import Header from './ui/Header';
-import FormValidationProvider from './ui/FormValidationProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,9 +36,7 @@ export default function RootLayout({
             <Navigation />
           </div>
           <div className="p-5 w-full rounded-2xl bg-white">
-            <ContactsProvider>
-              <FormValidationProvider>{children}</FormValidationProvider>
-            </ContactsProvider>
+            <ContactsProvider>{children}</ContactsProvider>
           </div>
         </div>
       </body>
