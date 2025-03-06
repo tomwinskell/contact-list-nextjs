@@ -38,20 +38,14 @@ This gives useful models of types for React specific situations. It was very use
 
 ## Getting Started
 
-First, run the development server:
+- Clone the repository and setup a postgres database.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Create a .env file with `DATABASE_URL="url"`.
+
+- Run, `npm run seed` to create contacts table in database and populate with starter data. This requires tsx to run typescript in the terminal.
+
+- Run the development server: `npm run dev`.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
