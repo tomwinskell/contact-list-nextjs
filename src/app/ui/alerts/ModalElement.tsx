@@ -37,7 +37,7 @@ interface Props {
   message: string;
 }
 
-const AlertModal = forwardRef<ModalHandle, Props>((props, ref) => {
+function AlertModalLogic(props: Props, ref: React.Ref<ModalHandle>) {
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -67,8 +67,8 @@ const AlertModal = forwardRef<ModalHandle, Props>((props, ref) => {
       </div>
     </Modal>
   );
-});
+}
 
-AlertModal.displayName = 'Child';
+const AlertModal = forwardRef<ModalHandle, Props>(AlertModalLogic);
 
 export default AlertModal;
