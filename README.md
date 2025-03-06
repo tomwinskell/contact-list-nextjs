@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+Live site: [https://contact-list-nextjs-liart.vercel.app/](https://contact-list-nextjs-liart.vercel.app/).
+
 ### What I learned
 
 ## Using a library for form validation
