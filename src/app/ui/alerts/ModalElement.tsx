@@ -69,6 +69,4 @@ function AlertModalLogic(props: Props, ref: React.Ref<ModalHandle>) {
   );
 }
 
-const AlertModal = forwardRef<ModalHandle, Props>(AlertModalLogic);
-
-export default AlertModal;
+export const AlertModal = forwardRef<ModalHandle, Props>(AlertModalLogic);

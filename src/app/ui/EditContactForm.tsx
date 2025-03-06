@@ -6,7 +6,7 @@ import { ContactsContext } from '@/app/ui/ContactsProvider';
 import { FormValidationContext } from '@/app/ui/FormValidationProvider';
 import SubmitButton from '@/app/ui/form/SubmitButton';
 import TextInput from '@/app/ui/TextInput';
-import ToastSuccess from '@/app/ui/alerts/ToastSuccess';
+import ToastSuccess from '@/app/ui/alerts/Toast';
 import { useParams, useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';

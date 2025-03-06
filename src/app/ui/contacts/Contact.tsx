@@ -1,26 +1,24 @@
 import Image from 'next/image';
 import PageHeading from '@/app/ui/layout/PageHeading';
-// import clsx from 'clsx';
-// import { AlertModal } from './ModalElement';
 import { useParams, useRouter } from 'next/navigation';
 import { useContext, useRef } from 'react';
 import { ContactsContext, UpdateContext } from '@/app/context/ContactsProvider';
 import clsx from 'clsx';
-import AlertModal, { ModalHandle } from '@/app/ui/alerts/ModalElement';
+import { AlertModal, ModalHandle } from '@/app/ui/alerts/ModalElement';
 import axios from 'axios';
 
-export function Contact() {
+export function Contact(): React.ReactNode {
   const modal = useRef<ModalHandle>(null);
   const contacts = useContext(ContactsContext);
-  const forceUpdate = useContext(UpdateContext)
+  const forceUpdate = useContext(UpdateContext);
   const { id } = useParams();
   const router = useRouter();
 
   const c = contacts.find((c) => c.id == id);
 
-  function handleModal() {
+  function handleModal(boolean: boolean) {
     if (modal.current) {
-      modal.current.changeModalState(!modal.current.modalState);
+      modal.current.changeModalState(boolean);
     }
   }
 
@@ -32,8 +30,9 @@ export function Contact() {
         },
       });
       if (response.status === 200) {
+        handleModal(false);
         forceUpdate();
-        router.push('/contacts')
+        router.push('/contacts');
       }
     } catch (error) {
       console.error(`Failed to delete contact: ${error}`);
@@ -74,7 +73,7 @@ export function Contact() {
               Edit
             </button> */}
             <button
-              onClick={handleModal}
+              onClick={() => handleModal(true)}
               className={clsx(
                 ' py-2 px-4 font-semibold  rounded-lg w-min bg-red-400 text-white'
               )}
@@ -85,7 +84,7 @@ export function Contact() {
           <AlertModal
             ref={modal}
             onYes={() => handleDelete()}
-            onCancel={handleModal}
+            onCancel={() => handleModal(false)}
             message="Do you wish to delete this contact?"
           />
         </>
