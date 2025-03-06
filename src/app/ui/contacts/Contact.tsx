@@ -64,14 +64,14 @@ export function Contact(): React.ReactNode {
             </div>
           </div>
           <div className="flex flex-row justify-between">
-            {/* <button
+            <button
               onClick={() => router.push(`/contacts/${id}/edit`)}
               className={clsx(
                 'py-2 px-4 font-semibold  rounded-lg w-min bg-indigo-700 text-white'
               )}
             >
               Edit
-            </button> */}
+            </button>
             <button
               onClick={() => handleModal(true)}
               className={clsx(

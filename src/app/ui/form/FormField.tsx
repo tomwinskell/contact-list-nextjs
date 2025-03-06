@@ -15,7 +15,6 @@ export function FormField({
         <label className="me-2 sm:w-1/3 sm:text-end" htmlFor="firstName">
           {placeholder}
         </label>
-
         <div className="w-full sm:w-2/3">
           <div className='relative'>
             <input

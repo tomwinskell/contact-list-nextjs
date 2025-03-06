@@ -1,17 +1,20 @@
 'use client';
-
 import PageHeading from '@/app/ui/layout/PageHeading';
+import { Form } from '@/app/ui/form/Form';
+import { useParams } from 'next/navigation';
+import { useContext } from 'react';
+import { ContactsContext } from '@/app/context/ContactsProvider';
 
-import FormValidationProvider from '@/app/ui/FormValidationProvider';
-import EditContactForm from '@/app/ui/EditContactForm';
+export default function EditContact() {
+  const contacts = useContext(ContactsContext);
+  const { id } = useParams();
 
-export default function AddContactPage() {
+  const c = contacts.find((c) => c.id == id);
+
   return (
     <>
-      <PageHeading heading="Add New Contact" />
-      <FormValidationProvider>
-        <EditContactForm />
-      </FormValidationProvider>
+      <PageHeading heading="Edit Contact" />
+      <Form values={c} update={true}/>
     </>
   );
 }

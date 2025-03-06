@@ -6,7 +6,7 @@ export default function NewContact() {
   return (
     <>
       <PageHeading heading="Add New Contact" />
-      <Form />
+      <Form/>
     </>
   );
 }

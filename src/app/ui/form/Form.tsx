@@ -9,8 +9,15 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { UpdateContext } from '@/app/context/ContactsProvider';
 import Toast, { ToastHandle } from '@/app/ui/alerts/Toast';
+import clsx from 'clsx';
 
-export function Form(): React.ReactNode {
+export function Form({
+  values,
+  update,
+}: {
+  values?: FormData;
+  update?: boolean;
+}): React.ReactNode {
   const toast = useRef<ToastHandle>(null);
   const forceUpdate = useContext(UpdateContext);
   const router = useRouter();
@@ -20,7 +27,7 @@ export function Form(): React.ReactNode {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<FormData>({ resolver: zodResolver(ContactSchema) });
+  } = useForm<FormData>({ resolver: zodResolver(ContactSchema), values });
 
   function handleToast(boolean: boolean) {
     if (toast.current) {
@@ -103,11 +110,14 @@ export function Form(): React.ReactNode {
           register={register}
           name="contactImage"
         />
-        <SubmitButton text="Add Contact" disabled={false} />
+        <SubmitButton
+          text={clsx(update ? 'Update contact' : 'Add contact')}
+          disabled={false}
+        />
       </form>
       <Toast ref={toast} onClose={() => handleToast(false)}>
-      Contact successfully added.
-    </Toast>
+        Contact successfully added.
+      </Toast>
     </>
   );
 }
