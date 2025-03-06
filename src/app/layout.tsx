@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
-import ContactsProvider from '@/app/ui/ContactsProvider';
-import Navigation from '@/app/ui/Navigation';
-import Header from './ui/Header';
+import Navigation from '@/app/ui/layout/Navigation';
+import Header from './ui/layout/Header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,9 +34,7 @@ export default function RootLayout({
             <Header />
             <Navigation />
           </div>
-          <div className="p-5 rounded-2xl bg-white">
-            <ContactsProvider>{children}</ContactsProvider>
-          </div>
+          <div className="p-5 rounded-2xl bg-white">{children}</div>
         </div>
       </body>
     </html>

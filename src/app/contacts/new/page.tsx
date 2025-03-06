@@ -1,16 +1,12 @@
 'use client';
+import PageHeading from '@/app/ui/layout/PageHeading';
+import { Form } from '@/app/ui/form/Form';
 
-import PageHeading from '@/app/ui/PageHeading';
-import AddContactForm from '@/app/ui/AddContactForm';
-import FormValidationProvider from '@/app/ui/FormValidationProvider';
-
-export default function AddContactPage() {
+export default function NewContact() {
   return (
     <>
       <PageHeading heading="Add New Contact" />
-      <FormValidationProvider>
-        <AddContactForm />
-      </FormValidationProvider>
+      <Form />
     </>
   );
 }

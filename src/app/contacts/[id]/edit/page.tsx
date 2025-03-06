@@ -1,6 +1,6 @@
 'use client';
 
-import PageHeading from '@/app/ui/PageHeading';
+import PageHeading from '@/app/ui/layout/PageHeading';
 
 import FormValidationProvider from '@/app/ui/FormValidationProvider';
 import EditContactForm from '@/app/ui/EditContactForm';

@@ -1,10 +1,10 @@
 'use client';
 
 import { formElements } from '@/app/lib/addContactFormElements';
-import { Contact, ContactFormData } from '@/app/lib/definitions';
+import { Contact, ContactFormData } from '@/app/lib/types';
 import { ContactsContext } from '@/app/ui/ContactsProvider';
 import { FormValidationContext } from '@/app/ui/FormValidationProvider';
-import SubmitButton from '@/app/ui/SubmitButton';
+import SubmitButton from '@/app/ui/form/SubmitButton';
 import TextInput from '@/app/ui/TextInput';
 import ToastSuccess from '@/app/ui/ToastSuccess';
 import { useParams, useRouter } from 'next/navigation';
@@ -47,7 +47,7 @@ export default function EditContactForm() {
     const dataObject = Object.fromEntries(formData.entries());
     if (!disabled) {
       setContacts([
-        ...(contacts.filter((c) => c.id !== id)),
+        ...contacts.filter((c) => c.id !== id),
         {
           ...(dataObject as ContactFormData),
           id: c!.id,

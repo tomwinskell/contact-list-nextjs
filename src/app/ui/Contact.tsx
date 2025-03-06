@@ -1,55 +1,58 @@
 import Image from 'next/image';
-import { Contact } from '../lib/definitions';
-import PageHeading from './PageHeading';
-import clsx from 'clsx';
-import { ContactsContext } from './ContactsProvider';
-import { useContext, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { AlertModal } from './ModalElement';
+import PageHeading from './layout/PageHeading';
+// import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+// import { AlertModal } from './ModalElement';
+import { useParams } from 'next/navigation';
+import axios from 'axios';
+import { FormData } from '@/app/lib/types';
 
-export default function ContactItem({
-  id,
-  firstName,
-  lastName,
-  imageUrl,
-  email,
-  phone,
-}: Contact) {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [contacts, setContacts] = useContext(ContactsContext);
-  const router = useRouter();
+export function Contact() {
+  const [data, setData] = useState<FormData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  function handleDelete() {
-    setModalOpen(false);
-    router.push('/contacts');
-    setContacts(contacts.filter((c) => c.id !== id));
-  }
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function getContact(): Promise<void> {
+      axios
+        .get(`/api/contacts/${id}`)
+        .then((res) => {
+          const data = res.data.contacts;
+          return data.map((c: ContactData) => keysToTitleCase(c));
+        })
+        .then((data) => setData(data))
+        .then(() => setLoading(false));
+    }
+    getContact();
+  });
 
   return (
     <>
-      <PageHeading heading={`${firstName}, ${lastName}`} />
-      {id === undefined ? (
-        <div>No contact.</div>
+      
+      {loading ? (
+        <PageHeading heading={'No contact.'} />
       ) : (
         <>
+        <PageHeading heading={`${data!.firstName}, ${data!.lastName}`} />
           <div className="flex sm:flex-row flex-col justify-around items-center py-5 mb-5">
             <div>
               <Image
                 className="rounded-full"
-                src={imageUrl}
-                alt={firstName}
+                src={data!.contactImage}
+                alt={data!.firstName}
                 width="128"
                 height="128"
               />
             </div>
             <div className="self-center text-center mt-5 sm:m-0">
               <div className="font-semibold text-sm">E-mail</div>
-              <div className="mb-2">{email}</div>
+              <div className="mb-2">{data!.email}</div>
               <div className="font-semibold text-sm">Phone</div>
-              <div>{phone}</div>
+              <div>{data!.phone}</div>
             </div>
           </div>
-          <div className="flex flex-row justify-between">
+          {/* <div className="flex flex-row justify-between">
             <button
               onClick={() => router.push(`/contacts/${id}/edit`)}
               className={clsx(
@@ -72,7 +75,7 @@ export default function ContactItem({
             onYes={() => handleDelete()}
             onCancel={() => setModalOpen(false)}
             message="Do you wish to delete this contact?"
-          />
+          /> */}
         </>
       )}
     </>

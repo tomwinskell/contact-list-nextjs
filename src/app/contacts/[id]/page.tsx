@@ -1,13 +1,10 @@
 'use client';
-import { Contact } from '@/app/lib/definitions';
-import ContactItem from '@/app/ui/ContactItem';
-import { ContactsContext } from '@/app/ui/ContactsProvider';
-import { useParams } from 'next/navigation';
-import { useContext } from 'react';
+
+import { Contact } from '@/app/ui/Contact';
 
 export default function ContactPage() {
   const { id } = useParams();
-  const [contacts] = useContext(ContactsContext);
+
 
   function getContact(): Contact | undefined {
     if (contacts && id) {
@@ -18,6 +15,6 @@ export default function ContactPage() {
   const c = getContact();
 
   return (
-    <>{c === undefined ? <div>No contact.</div> : <ContactItem {...c} />}</>
+    <>{c === undefined ? <div>No contact.</div> : <Contact {...c} />}</>
   );
 }
