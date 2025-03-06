@@ -10,14 +10,7 @@ export async function POST(request: Request) {
     const contact = keysToLowerCase(body);
     const response = await sql`
       insert into contacts
-      ${sql(
-        contact,
-        'firstname',
-        'lastname',
-        'email',
-        'phone',
-        'contactimage'
-      )}
+      ${sql(contact, 'firstname', 'lastname', 'email', 'phone', 'contactimage')}
       returning *
     `;
     return NextResponse.json({ success: true, contacts: response });
@@ -32,8 +25,8 @@ export async function GET() {
   const response = await sql`
   select * from contacts
   order by firstname asc
-  `
-  return NextResponse.json({ contacts: response })
+  `;
+  return NextResponse.json({ contacts: response });
 }
 
 export async function DELETE(request: Request) {
@@ -41,6 +34,31 @@ export async function DELETE(request: Request) {
   await sql`
   delete from contacts
   where id = ${body.id}
-  `
-  return NextResponse.json({ deleted: body })
+  `;
+  return NextResponse.json({ deleted: body });
+}
+
+export async function PUT(request: Request) {
+  const body = await request.json();
+  const result = ContactSchema.safeParse(body.data);
+  if (result.success) {
+    const contact = keysToLowerCase(body.data);
+    const response = await sql`
+      update contacts
+      set ${sql(
+        contact,
+        'firstname',
+        'lastname',
+        'email',
+        'phone',
+        'contactimage'
+      )}
+      where id = ${body.id}
+    `;
+    return NextResponse.json({ success: true, contacts: response });
+  }
+  const serverErrors = Object.fromEntries(
+    result.error?.issues?.map((issue) => [issue.path[0], issue.message]) || []
+  );
+  return NextResponse.json({ errors: serverErrors });
 }

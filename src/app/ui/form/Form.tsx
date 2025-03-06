@@ -6,7 +6,7 @@ import SubmitButton from './SubmitButton';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactSchema } from '@/app/lib/contactSchema';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { UpdateContext } from '@/app/context/ContactsProvider';
 import Toast, { ToastHandle } from '@/app/ui/alerts/Toast';
 import clsx from 'clsx';
@@ -21,6 +21,7 @@ export function Form({
   const toast = useRef<ToastHandle>(null);
   const forceUpdate = useContext(UpdateContext);
   const router = useRouter();
+  const { id } = useParams();
 
   const {
     register,
@@ -37,7 +38,12 @@ export function Form({
 
   async function onSubmit(data: FormData) {
     try {
-      const response = await axios.post('/api/contacts', data);
+      let response;
+      if (update) {
+        response = await axios.put('/api/contacts', { data, id: id });
+      } else {
+        response = await axios.post('/api/contacts', data);
+      }
       const { errors = {} } = response.data;
 
       const fieldErrorMapping: Record<string, ValidFieldNames> = {
@@ -116,7 +122,9 @@ export function Form({
         />
       </form>
       <Toast ref={toast} onClose={() => handleToast(false)}>
-        Contact successfully added.
+        {update
+          ? 'Contact successfully updated.'
+          : 'Contact successfully added.'}
       </Toast>
     </>
   );
