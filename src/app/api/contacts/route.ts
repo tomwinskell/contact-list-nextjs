@@ -35,3 +35,8 @@ export async function GET() {
   `
   return NextResponse.json({ contacts: response })
 }
+
+export async function DELETE(request: Request) {
+  const body = await request.json();
+  console.log(body);
+}
