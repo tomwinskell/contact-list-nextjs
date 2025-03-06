@@ -38,5 +38,9 @@ export async function GET() {
 
 export async function DELETE(request: Request) {
   const body = await request.json();
-  console.log(body);
+  await sql`
+  delete from contacts
+  where id = ${body.id}
+  `
+  return NextResponse.json({ deleted: body })
 }

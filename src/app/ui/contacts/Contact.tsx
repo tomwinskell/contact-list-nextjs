@@ -1,17 +1,20 @@
 import Image from 'next/image';
-import PageHeading from '../layout/PageHeading';
+import PageHeading from '@/app/ui/layout/PageHeading';
 // import clsx from 'clsx';
 // import { AlertModal } from './ModalElement';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useContext, useRef } from 'react';
-import { ContactsContext } from '../../context/ContactsProvider';
+import { ContactsContext, UpdateContext } from '@/app/context/ContactsProvider';
 import clsx from 'clsx';
 import AlertModal, { ModalHandle } from '@/app/ui/alerts/ModalElement';
+import axios from 'axios';
 
 export function Contact() {
   const modal = useRef<ModalHandle>(null);
   const contacts = useContext(ContactsContext);
+  const forceUpdate = useContext(UpdateContext)
   const { id } = useParams();
+  const router = useRouter();
 
   const c = contacts.find((c) => c.id == id);
 
@@ -21,14 +24,20 @@ export function Contact() {
     }
   }
 
-  // function handleCloseModal() {
-  //   if (modal.current) {
-  //     modal.current.changeModalState(false);
-  //   }
-  // }
-
-  function handleDelete() {
-    console.log('deleting');
+  async function handleDelete() {
+    try {
+      const response = await axios.delete('/api/contacts', {
+        data: {
+          id: id,
+        },
+      });
+      if (response.status === 200) {
+        forceUpdate();
+        router.push('/contacts')
+      }
+    } catch (error) {
+      console.error(`Failed to delete contact: ${error}`);
+    }
   }
 
   return (

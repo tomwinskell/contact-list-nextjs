@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormData, ValidFieldNames } from '@/app/lib/types';
 import { FormField } from './FormField';
@@ -8,8 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactSchema } from '@/app/lib/contactSchema';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { UpdateContext } from '@/app/context/ContactsProvider';
 
 export function Form(): React.ReactNode {
+  const forceUpdate = useContext(UpdateContext)
   const router = useRouter();
 
   const {
@@ -42,6 +44,7 @@ export function Form(): React.ReactNode {
           message: errors[fieldWithError],
         });
       } else {
+        forceUpdate();
         router.push('/contacts');
       }
     } catch (error) {
